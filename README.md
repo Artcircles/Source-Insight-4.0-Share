@@ -43,15 +43,40 @@ source in sight 4 分享介绍 官网地址 https://www.sourceinsight.com/
 
 - 1.关于代码颜色主题配置
 
-    首先配置是很主观，个人倾向于偏单店风格，估有了模仿 vscode 的 Light+ 颜色主题，这个主题颜色比较符合早期使用的vc6.0风格，该配置文件已经放在 **03_plug_in/Light+.xml **,然后打开菜单栏 Options|Load Configuration,可以直接加入此配置
+    首先配置是很主观，个人倾向于偏淡风格，故有了模仿 vscode 的 Light+ 颜色主题，这个主题颜色比较符合早期使用的vc6.0风格，该配置文件已经放在 **03_plug_in/Light+.xml **,然后打开菜单栏 Options|Load Configuration,可以直接加入此配置
 
     当然也可以自己更改需要在 Options|Style Properties 进行一些代码颜色配置，当然可以保存这些，在Options|Save Configuration 保存自己配置[生成XML保存]，如果不想更改配置，想尝试其它的主题，直接点 Options|Visual Theme 进行各种快速切换
 
 - 2.关于插件
     插件和source in sight 3.5是兼容的，可以直接使用，个人推荐Switch_cpp_hpp.em这个插件[在03_plug_in\Switch_cpp_hpp.em]，可以快速切换同名头文件和C文件，配合 按键设置，可以很流畅切换，其中插件放在的位置 在**个人文档的 Source Insight 4.0\Projects\Base** 放置
 
-- 3 代码片段
+- 3 关于 版本管理忽略 
 
+由于 source in sight 4.0 是 产生的文件是不需要进入版本管理的，故提交的时候需要忽略，下面命令针对 git 忽略 source in sight 4.0 后缀名
+```bash
+# ignore source in sight 4.0 file
+*.sip_xab
+*.sip_xad
+*.sip_xc
+*.sip_xf
+*.sip_xm
+*.sip_xr
+*.sip_xsb
+*.sip_xsd
+*.siproj
+*.bookmarks.xml
+*.siproj_settings.xml
+*.snippets.xml
+*.siwork
+*.sip_sym
+*.sisc
+*.SearchResults
+
+# ignore source in sight 4.0 backup file
+*(*[0-9]).c
+*(*[0-9]).cpp
+*(*[0-9]).h
+```
 
 
     
