@@ -85,7 +85,7 @@ source in sight 4 分享介绍 [官网](https://www.sourceinsight.com/)
 
 - 5.支持更多的编码格式
 
-之前 SourceInSight3.5 默认是ANSI（GBK）编码格式，在 source in sight 4.0中打开会注释有乱码（source in sight 4.0默认是UTF-8格式），可以选择编码格式为GBK，关于编码格式，个人倾向于注释全用英文比较号，就不会又中文乱码问题
+之前 SourceInSight3.5 默认是ANSI（GBK）编码格式，在 source in sight 4.0中打开会注释有乱码（source in sight 4.0默认是UTF-8格式），可以选择编码格式为GBK，关于编码格式，个人倾向于注释全用英文比较号好，就不会又中文乱码问题
 
 ![ENCODE](04_misc/pic/ENCODE.jpg)
 
