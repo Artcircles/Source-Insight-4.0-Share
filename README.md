@@ -2,13 +2,13 @@
 
 source in sight 4 分享介绍 [官网](https://www.sourceinsight.com/)
 
-## 1.概述
+## 1 概述
 
 最新版 Source Insight 4.0.0095[2018/8/21官网更新目前来看是最新版]，[参考](https://bbs.pediy.com/thread-215669-1.htm) 安装截图如下:
 
-## 2.正文
+## 2 正文
 
-### 2.1安装介绍
+### 2.1 安装介绍
 
 打开 文件夹 **02_source**,里面有3个文件,分别说明如下
 
@@ -38,7 +38,7 @@ source in sight 4 分享介绍 [官网](https://www.sourceinsight.com/)
 
 ![UI](04_misc/pic/UI.jpg)
 
-## 2.2原生特性介绍
+## 2.2 原生特性介绍
 
 ### 2.2.1 界面改版
 
@@ -85,25 +85,25 @@ source in sight 4 分享介绍 [官网](https://www.sourceinsight.com/)
 
 - 5.支持更多的编码格式
 
-之前 SourceInSight3.5 默认是ANSI（GBK）编码格式，在 source in sight 4.0中打开会注释有乱码（source in sight 4.0默认是UTF-8格式），可以选择编码格式为GBK，关于编码格式，个人倾向于注释全用英文比较号好，就不会又中文乱码问题
+之前 SourceInSight3.5 默认是ANSI（GBK）编码格式，在 source in sight 4.0中打开会注释有乱码（source in sight 4.0默认是UTF-8格式），可以选择编码格式为GBK，关于编码格式，个人倾向于注释全用英文比较好，就不会又中文乱码问题
 
 ![ENCODE](04_misc/pic/ENCODE.jpg)
 
-## 3.其它说明
+## 2.3 其它说明
 
-### 3.1插件推荐
+### 2.3.1 插件推荐
 
--1 Switch_cpp_hpp.em
+- 1 Switch_cpp_hpp.em
 
-在 **03_plug_in\Switch_cpp_hpp.em **中加入此插件，方法与 source in sight3.5一致，此插件功能可以迅速切换同名.c和.h文件非常方便切换
+在 **03_plug_in\Switch_cpp_hpp.em** 中加入此插件，方法与 source in sight3.5一致，此插件功能可以迅速切换同名.c和.h文件非常方便切换
 
--2 doxygen.em
+- 2 doxygen.em
 
 这个插件之前分享了下，主要是生成doxygen格式的编码规范
 
 其中插件放在的位置 在**个人文档的 Source Insight 4.0\Projects\Base** 放置。当然还有其它比较好的插件，不一一介绍了，在我这边看来source in sight 4.0 已经更新了很好，之前一些诸如中文字符删除问题已经解决，标签插件原生的就很好，不需要其它类似插件。
 
-### 3.2.gitignore 忽略4.0产生文件
+### 2.3.2 .gitignore 忽略4.0产生文件
 由于 source in sight 4.0 是 产生的文件是不需要进入版本管理的，故提交的时候需要忽略，下面命令针对 git 忽略 source in sight 4.0 后缀名
 ```bash
 # ignore source in sight 4.0 file
