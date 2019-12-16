@@ -2,7 +2,7 @@
 // file    : doxygen.em
 // It's a doxygen file
 // ref: https://gist.github.com/Akagi201/3958206
-// Copyright (c) 2011-2020 HSAE co. Ltd. All rights reserved
+// Copyright (c) 2011-2020  co. Ltd. All rights reserved
 // 
 // Change Logs:
 // Date               Author      Note    
@@ -17,7 +17,7 @@
 //
 //*****************************************************************************
 
-/** @brief    添加变量上注释
+/** @brief    AddVarUp
   * @param[in]  
   * @param[out]  
   * @return  
@@ -45,7 +45,7 @@ macro AddVarUp()
     SetBufIns( hbuf, ln , strlen(tmp)-3 )  
 }
 
-/** @brief    添加变量右注释
+/** @brief    AddVarRight
   * @param[in]  
   * @param[out]  
   * @return  
@@ -73,7 +73,7 @@ macro AddVarRight()
     SetBufIns( hbuf, ln , strlen(tmp)-3 )  
 }
 
-/** @brief    添加函数头注释
+/** @brief    AddFuncHeader
   * @param[in]  
   * @param[out]  
   * @return  
@@ -91,19 +91,20 @@ macro AddFuncHeader()
 
     ln = GetBufLnCur( hbuf )
 
-    InsBufLine( hbuf, ln + 0, "/** \@brief " )
-    InsBufLine( hbuf, ln + 1, "  *" )
-    InsBufLine( hbuf, ln + 2, "  * \@param " )
-    InsBufLine( hbuf, ln + 3, "  *" )
-    InsBufLine( hbuf, ln + 4, "  * \@return " )
-    InsBufLine( hbuf, ln + 5, "  */" )
+    InsBufLine( hbuf, ln + 0, "/**" )
+    InsBufLine( hbuf, ln + 1, "  * \brief " )
+    InsBufLine( hbuf, ln + 2, "  *" )
+    InsBufLine( hbuf, ln + 3, "  * \param " )
+    InsBufLine( hbuf, ln + 4, "  *" )
+    InsBufLine( hbuf, ln + 5, "  * \return " )
+    InsBufLine( hbuf, ln + 6, "  */" )
     
     // put the insertion point inside the header comment
     SetBufIns( hbuf, ln + 0, 50 )
     
 }
 
-/** @brief    AddFuncHeaderAutoGenerate 添加函数头注释 自动生成
+/** @brief    AddFuncHeaderAutoGenerate
   * @param[in]  
   * @param[out]  
   * @return  
@@ -148,11 +149,16 @@ macro AddFuncHeaderAutoGenerate()
                      
         tmp_len=strlen(tmp)
        
-        last_char=strmid(tmp,tmp_len-1,tmp_len)
-        
-         
+        if(tmp_len>=1)
+        {
+            last_char=strmid(tmp,tmp_len-1,tmp_len)
+        }
+        else
+        {
+            last_char=""          
+        }
         func_str = cat(func_str,tmp)
-        if(")" == last_char)
+        if(")" == last_char||"}" == last_char)
         {
             break        
         }
@@ -174,13 +180,14 @@ macro AddFuncHeaderAutoGenerate()
     return_name=""
     para=""
    
-    func_name = Trim(GetStrSplit(func_str,"("," ",0))
-        
-    InsBufLine( hbuf, func_ln + 0, "/** \\brief @func_name@" )
+    //func_name = ToFuncValidName(Trim(GetStrSplit(func_str,"("," ",0)))
+
+    InsBufLine( hbuf, func_ln + 0, "/**" )  
+
+    InsBufLine( hbuf, func_ln + 1, "  * \\brief @func_name@" )
     
     
-    
-    InsBufLine( hbuf, func_ln + 1, "  *" )
+    InsBufLine( hbuf, func_ln + 2, "  *" )
     
     empty_str=strmid(func_str,0,0)
     
@@ -192,38 +199,36 @@ macro AddFuncHeaderAutoGenerate()
         
         if("void" == func_name || "" == func_name)
         {
-            InsBufLine( hbuf, func_ln + 2, "  * \\param None" ) 
-            InsBufLine( hbuf, func_ln + 3, "  *" ) 
+            InsBufLine( hbuf, func_ln + 3, "  * \\param None" ) 
+            InsBufLine( hbuf, func_ln + 4, "  *" ) 
         }  
         else
         {
-            para=delStrPointer(Trim(GetStrSplit(func_str,")"," ",0)))
-            InsBufLine( hbuf, func_ln + 2, "  * \\param @para@" ) 
-            InsBufLine( hbuf, func_ln + 3, "  *" )       
+            para=DelStrPointer(Trim(GetStrSplit(func_str,")"," ",0)))
+            InsBufLine( hbuf, func_ln + 3, "  * \\param @para@" ) 
+            InsBufLine( hbuf, func_ln + 4, "  *" )       
         }
-        InsBufLine( hbuf, func_ln + 3+(para_num_max)*2+1, "  * \\return None" )
-        InsBufLine( hbuf, func_ln + 3+(para_num_max)*2+2, "  */" ) 
+        InsBufLine( hbuf, func_ln + 4+(para_num_max)*2+1, "  * \\return " )
+        InsBufLine( hbuf, func_ln + 4+(para_num_max)*2+2, "  */" ) 
     }
     else
     {    
         func_ln=func_ln-2
         while(1)
         {
-            para = delStrPointer(Trim(GetStrSplit(func_str,","," ",0)))
-            
-            InsBufLine( hbuf, func_ln + 3+(para_num)*2+1, "  * \\param @para@" )         
-            InsBufLine( hbuf, func_ln + 3+(para_num)*2+2, "  *" )      
+            para = DelStrPointer(Trim(GetStrSplit(func_str,","," ",0)))           
+            InsBufLine( hbuf, func_ln + 4+(para_num)*1+1, "  * \\param @para@" )           
             
             para_num=para_num+1
             if(para_num == para_num_max)
             {
-                para=delStrPointer(Trim(GetStrSplit(func_str,")"," ",0)))
-                InsBufLine( hbuf, func_ln + 3+(para_num)*2+1, "  * \\param @para@" ) 
-                InsBufLine( hbuf, func_ln + 3+(para_num)*2+2, "  *" )
+                para=DelStrPointer(Trim(GetStrSplit(func_str,")"," ",0)))
+                InsBufLine( hbuf, func_ln + 4+(para_num)*1+1, "  * \\param @para@" ) 
+                InsBufLine( hbuf, func_ln + 4+(para_num)*1+2, "  *" )
                 
                 func_ln=func_ln+2
-                InsBufLine( hbuf, func_ln + 3+(para_num_max)*2+1, "  * \\return None" )
-                InsBufLine( hbuf, func_ln + 3+(para_num_max)*2+2, "  */" )                 
+                InsBufLine( hbuf, func_ln + 4+(para_num_max)*1+1, "  * \\return " )
+                InsBufLine( hbuf, func_ln + 4+(para_num_max)*1+2, "  */" )                 
                 break;
             }
             else
@@ -236,7 +241,7 @@ macro AddFuncHeaderAutoGenerate()
     func_ln=func_ln+2
 }
 
-/** @brief    添加文件头注释
+/** @brief    AddFileHeader
   * @param[in]  
   * @param[out]  
   * @return  
@@ -271,7 +276,7 @@ macro AddFileHeader()
     ln=ln+1
     InsBufLine( hbuf, ln, "// " )
     ln=ln+1
-    InsBufLine( hbuf, ln, "// Copyright (c) 2011-2020 HSAE co. Ltd. All rights reserved" )
+    InsBufLine( hbuf, ln, "// Copyright (c) 2011-2020  co. Ltd. All rights reserved" )
     ln=ln+1
     InsBufLine( hbuf, ln, "// ")
     ln=ln+1
@@ -294,17 +299,17 @@ macro AddFileHeader()
     if(month<10 && day <10)
     {
         ln=ln+1
-        InsBufLine( hbuf, ln, "// @year@/0@month@/0@day@         @szMyName@@struct_member_space@First draft version")
+        InsBufLine( hbuf, ln, "// @year@/0@month@/0@day@          @szMyName@@struct_member_space@First draft version")
     }
     else if(month<10 && day >10)
     {
         ln=ln+1
-        InsBufLine( hbuf, ln, "// @year@/0@month@/@day@         @szMyName@@struct_member_space@First draft version")
+        InsBufLine( hbuf, ln, "// @year@/0@month@/@day@          @szMyName@@struct_member_space@First draft version")
     }
     else
     {
         ln=ln+1
-        InsBufLine( hbuf, ln, "// @year@/@month@/@day@         @szMyName@@struct_member_space@First draft version")
+        InsBufLine( hbuf, ln, "// @year@/@month@/@day@          @szMyName@@struct_member_space@First draft version")
     }
     ln=ln+1
     InsBufLine( hbuf, ln, "// " )
@@ -427,7 +432,7 @@ macro AddFileHeader()
     }
 }
 
-/** @brief    添加结构体
+/** @brief    AddStruct
   * @param[in]  
   * @param[out]  
   * @return  
@@ -473,7 +478,7 @@ macro AddStruct()
     InsBufLine( hbuf, ln,"typedef struct @struct_name@ @struct_name@_t;" )
 }
 
-/** @brief    添加结构体演示
+/** @brief    AddStructDemo
   * @param[in]  
   * @param[out]  
   * @return  
@@ -501,7 +506,7 @@ macro AddStructDemo()
 }
 
 
-/** @brief    添加枚举
+/** @brief    AddEnum
   * @param[in]  
   * @param[out]  
   * @return  
@@ -545,10 +550,10 @@ macro AddEnum()
     ln=ln+1
     InsBufLine( hbuf, ln,"/** define @enum_name@_t */" )
     ln=ln+1
-    InsBufLine( hbuf, ln,"typedef struct @enum_name@ @enum_name@_t;" )
+    InsBufLine( hbuf, ln,"typedef enum @enum_name@ @enum_name@_t;" )
 }
 
-/** @brief    添加枚举演示
+/** @brief    AddEnumDemo
   * @param[in]  
   * @param[out]  
   * @return  
@@ -914,10 +919,9 @@ macro GetStrRev(sz)
         }                            
     }
     return return_str
-    
 }
 
-macro delStrPointer(sz)  
+macro DelStrPointer(sz)  
 {  
     i=0
     return_str=sz
@@ -934,6 +938,29 @@ macro delStrPointer(sz)
     }   
 }
 
+macro ToFuncValidName(sz)  
+{  
+    i=0
+    return_str=sz
+  
+   
+    sz_len=strlen(sz)
+
+    while(1) 
+    {
+ 
+        if(return_str[i] == "_")
+        {
+            return_str[i] = " "
+        }          
+        i=i+1
+        if(i>=sz_len)
+        {    
+            break
+        }                            
+    }
+    return return_str
+}  
 
 //*****************************************************************************
 //
